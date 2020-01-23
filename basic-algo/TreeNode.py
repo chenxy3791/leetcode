@@ -2,6 +2,7 @@
 """
 Created on Fri Sep 20 13:01:04 2019
 2020-1-21 Add BinaryTree class
+2020-1-22 Add BinaryTree.binTree2Lst()
 
 @author: chenxy
 """
@@ -53,6 +54,31 @@ class BinaryTree:
             nodeLoL.append(newLayer)
             k += 1
 
+def binTree2Lst(root):
+    """ 
+        An inverse of the BinaryTree constructor. 
+    """
+    if root == None:
+        return []
+
+    nodeLst = [root]
+    valLst  = []
+    
+    while len(nodeLst) > 0:
+        curNode = nodeLst.pop()
+        if curNode != None:
+            nodeLst.insert(0,curNode.left)
+            nodeLst.insert(0,curNode.right)        
+            valLst.append(curNode.val)
+        else:
+            valLst.append(None)
+
+    # Throw away the trailing 'None'
+    while valLst[-1] == None:
+        valLst.pop()
+
+    return valLst
+
 if __name__ == '__main__':    
 
     x   = [3,9,20,None,None,15,7]
@@ -64,3 +90,5 @@ if __name__ == '__main__':
     print(xBT.root.left.right)    
     print(xBT.root.right.left.val)
     print(xBT.root.right.right.val)    
+
+    print(binTree2Lst(xBT.root))
