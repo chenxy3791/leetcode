@@ -1,4 +1,4 @@
-removeDuplicate: removeDuplicate.cpp
+No0005: removeDuplicate.cpp
 	g++ -pipe -O2 -std=c++11 removeDuplicate.cpp -lm
 
 .PHONY:clean
