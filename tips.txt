@@ -1,0 +1,22 @@
+1.	Spyder
+1.1	Spyder编辑中添加注释的快捷方式
+  Comment/Uncomment : Ctrl + 1
+  Add block Comment : Ctrl + 4
+  Remove block Comment : Ctrl + 5
+
+2. 常用库：
+  import time
+  import random
+  from typing import List	
+  from collections import defaultdict
+  import time
+  import numpy as np
+  from math import sqrt
+  from collections import deque
+  import itertools as it
+
+3. simple time evaluation
+  tStart= time.time()
+  func()
+  tStop = time.time()
+  print("Time cost is {0}".format(tStop-tStart))    

@@ -54,23 +54,25 @@ import itertools as it
 
 class Solution:
     def countTriplets(self, nums: List[int]) -> int:
-        count_zero = 16 * [0]
-        for k in range(16):
+        counts = defaultdict()
+        for k in range(len(nums)):
             for j in range(len(nums)):
-                count_zero[k] = count_zero[k] + (1 - nums[j]%2)
-                nums[j]    = nums[j] // 2
+                # counts[nums[k] & nums[j]] += 1
+                and_rslt = nums[k] & nums[j]
+                if and_rslt in counts:
+                    counts[and_rslt] = counts[and_rslt] + 1
+                else:
+                    counts[and_rslt] = 1
         
-        prod = 1
-        for k in range(16):
-            print(count_zero[k])
-            prod = prod * count_zero[k]
-            
-        return prod
+        print(counts)
+        triples_cnt = 0
+        for k in counts:
+            for j in range(len(nums)):
+                triples_cnt += ( k & nums[j] == 0) * counts[k]
+                    
+        return triples_cnt
             
 if __name__ == '__main__':
-
-    # import time
-    # import numpy as np
 
     sln  = Solution()        
 
@@ -78,5 +80,8 @@ if __name__ == '__main__':
     print(sln.countTriplets(nums))
 
     nums = [0,0,0]
+    print(sln.countTriplets(nums))
+    
+    nums = [1,1,1]
     print(sln.countTriplets(nums))
            
