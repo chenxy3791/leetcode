@@ -20,3 +20,19 @@
   func()
   tStop = time.time()
   print("Time cost is {0}".format(tStop-tStart))    
+  
+4. Python – Read File as String
+https://www.tutorialkart.com/python/python-read-file-as-string/
+
+import os
+ 
+file_path = "D:/data123.txt" 
+#check if file is present
+if os.path.isfile(file_path):
+    #open text file in read mode
+    text_file = open(file_path, "r")
+    #read whole file to a string
+    data = text_file.read()
+    #close file
+    text_file.close() 
+    print(data)
