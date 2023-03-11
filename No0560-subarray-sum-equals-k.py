@@ -50,30 +50,50 @@ class Solution:
     #                 cnt = cnt + 1
     #     return cnt            
 
+    # def subarraySum(self, nums: List[int], k: int) -> int:
+    #     cnt = 0
+    #     for start in range(len(nums)):
+    #         partsum = 0
+    #         for end in range(start,len(nums)):
+    #             partsum = partsum + nums[end]
+    #             if partsum == k:
+    #                 cnt = cnt + 1
+    #                 # break
+    #     return cnt
+    
     def subarraySum(self, nums: List[int], k: int) -> int:
+        '''
+        执行用时：100 ms, 在所有 Python3 提交中击败了35.15%的用户
+        内存消耗：17.6 MB, 在所有 Python3 提交中击败了51.53%的用户
+        通过测试用例：93 / 93
+        '''
         cnt = 0
-        for start in range(len(nums)):
-            partsum = 0
-            for end in range(start,len(nums)):
-                partsum = partsum + nums[end]
-                if partsum == k:
-                    cnt = cnt + 1
-                    # break
-        return cnt
-                
+        h   = defaultdict(int)
+        h[0] = 1
+        presum = 0
+        for i in range(len(nums)):
+            print(i,h)
+            presum = presum + nums[i]
+            if presum-k in h:
+                cnt = cnt + h[presum-k]
+            h[presum] = h[presum] + 1
+            print(i,h)
+            print()
+        # print(h)
+        return cnt                
 
 if __name__ == '__main__':
 
     sln  = Solution()                
     
-    nums = [1,1,1]
-    k    = 2
-    print(sln.subarraySum(nums,k))
+    # nums = [1,1,1]
+    # k    = 2
+    # print(sln.subarraySum(nums,k))
     
-    nums = [1,2,3]
-    k    = 3
-    print(sln.subarraySum(nums,k))
+    # nums = [1,2,3]
+    # k    = 3
+    # print(sln.subarraySum(nums,k))
     
-    nums = [1,-1,0]
+    nums = [1,-1, 0, 2, 0]
     k    = 0
     print(sln.subarraySum(nums,k))
