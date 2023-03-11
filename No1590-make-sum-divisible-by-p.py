@@ -11,28 +11,30 @@ Created on Fri Mar 10 20:39:10 2023
 
 子数组 定义为原数组中连续的一组元素。
 
- 
-
 示例 1：
 
 输入：nums = [3,1,4,2], p = 6
 输出：1
 解释：nums 中元素和为 10，不能被 p 整除。我们可以移除子数组 [4] ，剩余元素的和为 6 。
+
 示例 2：
 
 输入：nums = [6,3,5,2], p = 9
 输出：2
 解释：我们无法移除任何一个元素使得和被 9 整除，最优方案是移除子数组 [5,2] ，剩余元素为 [6,3]，和为 9 。
+
 示例 3：
 
 输入：nums = [1,2,3], p = 3
 输出：0
 解释：和恰好为 6 ，已经能被 3 整除了。所以我们不需要移除任何元素。
+
 示例  4：
 
 输入：nums = [1,2,3], p = 7
 输出：-1
 解释：没有任何方案使得移除子数组后剩余元素的和被 7 整除。
+
 示例 5：
 
 输入：nums = [1000000000,1000000000,1000000000], p = 3
@@ -57,12 +59,46 @@ import itertools as it
 
 class Solution:
     def minSubarray(self, nums: List[int], p: int) -> int:        
-        sum_of_remove = sum(nums) % p
-        
+        k = sum(nums) % p
+        if k==0:
+            return 0
+        hmap = defaultdict(int)
+        hmap[0] = -1
+        pre  = 0
+        minlen = float('inf')
+        for i in range(len(nums)):
+            pre = (pre + nums[i]) % p
+            key = pre #((pre - k) % k)
+            if key in hmap:
+                print(k,i,key,hmap)
+                minlen = min(minlen, i - hmap[key])
+            hmap[key] = i            
+        return minlen if minlen < len(nums) else -1         
         
 if __name__ == '__main__':
 
     sln  = Solution()                
     
     nums = [3,1,4,2]
-    print(sln.minSubarray(nums))
+    p = 6
+    print(sln.minSubarray(nums,p))
+    
+    nums = [6,3,5,2]
+    p = 9
+    print(sln.minSubarray(nums,p))
+    
+    nums = [1,2,3]
+    p = 3
+    print(sln.minSubarray(nums,p))
+    
+    nums = [1,2,3]
+    p = 7
+    print(sln.minSubarray(nums,p))
+    
+    nums = [1000000000,1000000000,1000000000] 
+    p = 3
+    print(sln.minSubarray(nums,p))
+    
+    nums = [4,4,2]
+    p = 7
+    print(sln.minSubarray(nums,p))
