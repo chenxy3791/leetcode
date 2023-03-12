@@ -68,11 +68,11 @@ class Solution:
         minlen = float('inf')
         for i in range(len(nums)):
             pre = (pre + nums[i]) % p
-            key = pre #((pre - k) % k)
-            if key in hmap:
-                print(k,i,key,hmap)
-                minlen = min(minlen, i - hmap[key])
-            hmap[key] = i            
+            # key = ((pre - k) % p)
+            # print(k,i,pre,hmap)
+            if ((pre - k) % p) in hmap:
+                minlen = min(minlen, i - hmap[((pre - k) % p)])
+            hmap[pre] = i            
         return minlen if minlen < len(nums) else -1         
         
 if __name__ == '__main__':
