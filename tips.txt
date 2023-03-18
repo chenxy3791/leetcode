@@ -36,3 +36,5 @@ if os.path.isfile(file_path):
     #close file
     text_file.close() 
     print(data)
+    
+ValueError    
