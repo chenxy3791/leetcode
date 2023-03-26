@@ -23,14 +23,13 @@ Created on Sat Mar 18 08:12:32 2023
 解释：对于 [3,4] ，没有满足条件的“右侧”区间。
 对于 [2,3] ，区间[3,4]具有最小的“右”起点;
 对于 [1,2] ，区间[2,3]具有最小的“右”起点。
-示例 3：
 
+示例 3：
 输入：intervals = [[1,4],[2,3],[3,4]]
 输出：[-1,2,-1]
 解释：对于区间 [1,4] 和 [3,4] ，没有满足条件的“右侧”区间。
 对于 [2,3] ，区间 [3,4] 有最小的“右”起点。
  
-
 提示：
 
 1 <= intervals.length <= 2 * 10**4
@@ -51,6 +50,30 @@ import bisect
 
 class Solution:
     def findRightInterval(self, intervals: List[List[int]]) -> List[int]:
+        '''
+        执行用时：60 ms, 在所有 Python3 提交中击败了99.27%的用户
+        内存消耗：19.4 MB, 在所有 Python3 提交中击败了28.21%的用户
+        '''
+        starts = []
+        start2idx = defaultdict(int)
+        for k,itvl in enumerate(intervals):
+            print(itvl, k)
+            starts.append(itvl[0])
+            start2idx[itvl[0]] = k
+        starts.sort()
+        print(starts, start2idx)
+        
+        rslt = []
+        for itvl in intervals:
+            pos = bisect.bisect_left(starts,itvl[1])
+            print(starts,itvl[1],pos)
+            if pos >= len(intervals): 
+                pos = -1
+            else:
+                pos = start2idx[starts[pos]]
+            rslt.append(pos)
+        
+        return rslt
         
 if __name__ == '__main__':
 

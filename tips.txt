@@ -14,6 +14,7 @@
   from math import sqrt
   from collections import deque
   import itertools as it
+  import bisect
 
 3. simple time evaluation
   tStart= time.time()
@@ -23,18 +24,44 @@
   
 4. Python – Read File as String
 https://www.tutorialkart.com/python/python-read-file-as-string/
+Example:
+  import os
+   file_path = "D:/data123.txt" 
+  #check if file is present
+  if os.path.isfile(file_path):
+      #open text file in read mode
+      text_file = open(file_path, "r")
+      #read whole file to a string
+      data = text_file.read()
+      #close file
+      text_file.close() 
+      print(data)
 
-import os
+5. enumerate usage
+  intervals = [[3,4],[2,3],[1,2]]
+  for k,itvl in enumerate(intervals):
+    print(itvl, k)
+
+6. bisect usage　
+　bisect
+　bisect_left
+　bisect_right
+
+  bisect_left,insort_left与不带left的用法的区别是：
+  当插入的元素和序列中的某一个元素相同时，该插入到该元素的前面(左边,left),还是后面(右边);
+  如果是查找，则返回该元素的位置还是该元素之后的位置。
+
+  import bisect
+  a = [1,4,6,8,12,15,20]
+  position = bisect.bisect(a,13)
+  print(position)     
+  a.insert(position,13) # 使用bisect.insort，比bisect先查找该插入哪个位置，再用insert方法插入更加快速的方法
+  print(a)
  
-file_path = "D:/data123.txt" 
-#check if file is present
-if os.path.isfile(file_path):
-    #open text file in read mode
-    text_file = open(file_path, "r")
-    #read whole file to a string
-    data = text_file.read()
-    #close file
-    text_file.close() 
-    print(data)
-    
-ValueError    
+  a = [1,4,6,8,12,15,20]
+  bisect.insort(a,13)
+  print(a)
+
+7. Exception handling    
+  ValueError    
+  
