@@ -28,9 +28,10 @@ Note: The length of each dimension in the given grid does not exceed 50.
 然后比较各岛屿的面积求最大值即可。
 深度优先搜索或广度优先搜索都可以。
 """
+from typing import List
+from collections import deque
 class Solution:
-    #def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
-    def maxAreaOfIsland(self, grid) -> int:
+    def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
         # Assuming non-empty input matrix.
         maxSize = 0
         nrow = len(grid)
@@ -78,6 +79,30 @@ class Solution:
                     maxSize = cursize
 
         return maxSize
+
+    def maxAreaOfIsland2(self, grid: List[List[int]]) -> int:
+        if len(grid)==0 or len(grid[0])==0:
+            return 0
+        
+        R,C       = len(grid),len(grid[0])
+        maxArea   = 0
+        for r in range(len(grid)):
+            for c in range(len(grid[0])):                
+                if grid[r][c] == 1:
+                    area = 1
+                    # print(grid,r,c)
+                    q = deque([(r,c)])
+                    grid[r][c] = 0
+                    while len(q)>0:
+                        # (r0,c0) = q.popleft() # Used as queue, to implement BFS
+                        (r0,c0) = q.pop() # Used as stack, to implement DFS
+                        for x,y in [(r0-1,c0),(r0+1,c0),(r0,c0-1),(r0,c0+1)]:
+                            if 0<=x<R and 0<=y<C and grid[x][y]==1:
+                                q.append((x,y))
+                                grid[x][y] = 0
+                                area += 1
+                    maxArea = area if area > maxArea else maxArea
+        return maxArea
         
 if __name__ == '__main__':
 
@@ -96,7 +121,9 @@ if __name__ == '__main__':
             [0,0,0,0,0,0,0,1,1,1,0,0,0],
             [0,0,0,0,0,0,0,1,1,0,0,0,0]]
     print(sln.maxAreaOfIsland(grid))
+    print(sln.maxAreaOfIsland2(grid))
     
     print('\nTestcase2 ...')
     grid = [[0,0,0,0,0,0,0,0]]
     print(sln.maxAreaOfIsland(grid))
+    print(sln.maxAreaOfIsland2(grid))
