@@ -1,37 +1,43 @@
 """
-Given n non-negative integers a1, a2, ..., an , where each represents 
-a point at coordinate (i, ai). n vertical lines are drawn such that 
-the two endpoints of line i is at (i, ai) and (i, 0). Find two lines, 
-which together with x-axis forms a container, such that the container 
-contains the most water.
+11. Container With Most Water
+You are given an integer array height of length n. There are n vertical lines drawn such that the two endpoints of the ith line are (i, 0) and (i, height[i]).
 
-Note: You may not slant the container and n is at least 2.
+Find two lines that together with the x-axis form a container, such that the container contains the most water.
 
-Example:
+Return the maximum amount of water a container can store.
 
-Input: [1,8,6,2,5,4,8,3,7]
+Notice that you may not slant the container.
+
+Example 1:
+Input: height = [1,8,6,2,5,4,8,3,7]
 Output: 49
+Explanation: The above vertical lines are represented by array [1,8,6,2,5,4,8,3,7].
+In this case, the max area of water (blue section) the container can contain is 49.
 
-Solution1:
-Area = Max(min(height[i], height[j]) * (j-i)) {0 <= i < j < height,size()}
-动态规划.
-基本的表达式: area = min(height[i], height[j]) * (j - i) 使用两个指针，
-值小的指针向内移动. 
-原因是：
-面积取决于指针的距离与值小的值乘积，如果值大的值向内移动，距离一定减小，而求高则
-一定不会大于值小的值，因此面积一定减小。
-反过来，值小的指针向内移动的话，距离也一定在减小，面积有可能增大也有可能减小。
-在遍历过程中记录出现过的最大的值即可。
-因为始终都是值小的指针向内移动的话，最多移动N次，复杂度即为O(N).
+Example 2:
+Input: height = [1,1]
+Output: 1
+ 
+Constraints:
+n == height.length
+2 <= n <= 10**5
+0 <= height[i] <= 10**4
 
-来源：力扣（LeetCode）
-链接：https://leetcode-cn.com/problems/container-with-most-water
-著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 """
+import time
+import random
+from typing import List, Optional
+from collections import defaultdict
+import time
+import numpy as np
+from math import sqrt
+from collections import deque
+import itertools as it
+import bisect
 
 class Solution:
-    #def maxArea(self, height: List[int]) -> int:
-    def maxAreaNaive(self, height) -> int:
+    def maxAreaNaive(self, height: List[int]) -> int:
+
         if len(height) == 2:
             return min(height)
         aMax = 0;
@@ -42,12 +48,8 @@ class Solution:
                     aMax = area
         return aMax
 
-    def maxArea(self, height) -> int:
-        """ 
-        执行结果：通过
-        执行用时 :164 ms, 在所有 Python3 提交中击败了32.82%的用户
-        内存消耗 :15 MB,  在所有 Python3 提交中击败了50.79%的用户        
-         """
+    def maxArea(self, height: List[int]) -> int:
+
         fptr = 0
         bptr = len(height) - 1
         aMax = 0
