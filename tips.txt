@@ -64,4 +64,6 @@ Example:
 
 7. Exception handling    
   ValueError    
-  
+
+8. assert <condition>
+   assert <condition>,<error message>  
