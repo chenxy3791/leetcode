@@ -7,7 +7,7 @@
 2. 常用库：
   import time
   import random
-  from typing import List	
+  from typing import List, Optional	
   from collections import defaultdict
   import time
   import numpy as np
@@ -15,6 +15,9 @@
   from collections import deque
   import itertools as it
   import bisect
+  import sys
+  from utils.BinaryTree import TreeNode
+  from utils.BinaryTree import BinaryTree
 
 3. simple time evaluation
   tStart= time.time()
