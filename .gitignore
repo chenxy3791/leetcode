@@ -1,6 +1,7 @@
 # Build and Release Folders
 cpp/test
 utils/__pycache__
+.ipynb_checkpoints
 # Other files and folders
 
 # Executables
