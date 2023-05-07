@@ -33,6 +33,42 @@ import random
 
 class Solution:
     #def threeSum(self, nums: List[int]) -> List[List[int]]:
+    def threeSum2(self, nums):
+        #1.将数组排序 2.定义三个指针，i，j，k。遍历i，那么这个问题就可以转化为在i之后
+        # 的数组中寻找nums[j]+nums[k]=-nums[i]这个问题，也就将三数之和问题转变为二数
+        # 之和---（可以使用双指针）
+        def twoSum(nums, target):
+            ans = []
+            for j in range(len(nums)-1):
+                for l in range(j+1,len(nums)):
+                    if nums[j] + nums[l] == target:
+                        ans.append([nums[j], nums[l]])
+            return ans
+
+        if len(nums) < 3:
+            return []
+
+        nums.sort()
+        ans = []
+        for i in range(len(nums)-2):
+            subAns = twoSum(nums[i+1:],-nums[i])
+            for itemL in subAns:
+                ans.append([nums[i]] + itemL)
+
+        # # remove the duplicated items
+        if len(ans) >= 2:
+            k = 0
+            while k < len(ans):
+                j = k+1
+                while j < len(ans):
+                    if set(ans[j]) == set(ans[k]):
+                        del ans[j]
+                    else:
+                        j += 1
+                k = k+1
+
+        return ans
+
     def removeDuplicate(self,ans):        
         k = 0
         while k < len(ans):
@@ -77,6 +113,93 @@ class Solution:
         
         return ans
 
+    def threeSum3(self, nums):
+        #1.将数组排序 2.定义三个指针，i，j，k。遍历i，那么这个问题就可以转化为在i之后
+        # 的数组中寻找nums[j]+nums[k]=-nums[i]这个问题，也就将三数之和问题转变为二数
+        # 之和---（可以使用双指针）
+        # Compared to threeSum2, change the final-once-remove-duplicate operation to 
+        # distributed remove-duplicate operation, reduce the time-consumption to half
+        # # remove the duplicated items
+
+        if len(nums) < 3:
+            return []
+
+        nums.sort()
+        ans = []
+        for i in range(len(nums)-2):
+            subAns = self.twoSum(nums[i+1:],-nums[i])
+            for itemL in subAns:
+                ans.append([nums[i]] + itemL)
+
+        # # remove the duplicated items
+        if len(ans) >= 2:
+            ans = self.removeDuplicate(ans)
+
+        return ans
+
+    def threeSum4(self, nums):
+        #1.将数组排序 2.定义三个指针，i，j，k。遍历i，那么这个问题就可以转化为在i之后
+        # 的数组中寻找nums[j]+nums[k]=-nums[i]这个问题，也就将三数之和问题转变为二数
+        # 之和---（可以使用双指针）
+        # Compared to threeSum2, change the final-once-remove-duplicate operation to 
+        # distributed remove-duplicate operation, reduce the time-consumption to half
+        
+        if len(nums) < 3:
+            return []
+
+        nums.sort()
+        ans = []
+        for i in range(len(nums)-2):
+            if nums[i] > 0:
+                break
+            if nums[i+1] <= int((-nums[i])/2):
+                subAns = self.twoSum(nums[i+1:],-nums[i])
+                for itemL in subAns:
+                    ans.append([nums[i]] + itemL)                
+
+        # # remove the duplicated items
+        if len(ans) >= 2:
+            ans = self.removeDuplicate(ans)
+
+        return ans
+
+    def threeSum5(self, nums):
+        #1.将数组排序 2.定义三个指针，i，j，k。遍历i，那么这个问题就可以转化为在i之后
+        # 的数组中寻找nums[j]+nums[k]=-nums[i]这个问题，也就将三数之和问题转变为二数
+        # 之和---（可以使用双指针）
+        # Compared to threeSum2, change the final-once-remove-duplicate operation to 
+        # distributed remove-duplicate operation, reduce the time-consumption to half
+        
+        if len(nums) < 3:
+            return []
+
+        if len(nums) == 3:
+            if sum(nums) == 0:
+                return [nums]
+            else:
+                return []
+
+        nums.sort()
+        ans = []
+        subGrpAns = []
+        for i in range(len(nums)-2):
+            if nums[i] > 0:
+                break
+            
+            if nums[i+1] <= int((-nums[i])/2):
+                subAns = self.twoSum(nums[i+1:],-nums[i])
+                for itemL in subAns:
+                    subGrpAns.append([nums[i]] + itemL)                
+
+            if nums[i+1] != nums[i]:
+                subGrpAns = self.removeDuplicate(subGrpAns)
+                for itemL in subGrpAns:
+                    ans.append(itemL)                
+                subGrpAns = []
+
+        # # No need of remove-duplicated for the final ans
+        return ans
+
     def threeSum6(self, nums):
         #1.将数组排序 2.定义三个指针，i，j，k。遍历i，那么这个问题就可以转化为在i之后
         # 的数组中寻找nums[j]+nums[k]=-nums[i]这个问题，也就将三数之和问题转变为二数
@@ -113,6 +236,109 @@ class Solution:
             else:
                 break
 
+        return ans
+
+    def threeSumDP(self, nums):
+        # Need further time-performance optimization
+        def dp(start, targetSum, m):
+            #print('dp({0},{1},{2})'.format(start, targetSum, m))
+            # baseline case handling
+            if m == (len(nums)-start):
+                if sum(nums[start:]) == targetSum:
+                    return [nums[start:]]
+                else:
+                    return []
+
+            if m == 1:
+                if targetSum in nums[start:]:
+                    return [[targetSum]]
+                else:
+                    return []
+
+            # normal case handling
+            ans = []
+            # Use nums[start]
+            subAns = dp(start+1, targetSum-nums[start], m-1)
+            for itemL in subAns:
+                ans.append([nums[start]] + itemL)
+
+            subAns = dp(start+1, targetSum, m)
+            for itemL in subAns:
+                ans.append(itemL)            
+            
+            return ans
+
+        if len(nums) < 3:
+            return []
+        ans = dp(0,0,3)
+
+        # # remove the duplicated items
+        if len(ans) >= 2:
+            k = 0
+            while k < len(ans):
+                j = k+1
+                while j < len(ans):
+                    if set(ans[j]) == set(ans[k]):
+                        del ans[j]
+                    else:
+                        j += 1
+                k = k+1
+    
+        return ans
+
+    def threeSumDPWithMemo(self, nums):
+        # Need further time-performance optimization
+        memo = dict()
+        def dp(start, targetSum, m):
+            #print('dp({0},{1},{2})'.format(start, targetSum, m))
+            # baseline case handling
+            if m == (len(nums)-start):
+                if sum(nums[start:]) == targetSum:
+                    return [nums[start:]]
+                else:
+                    return []
+
+            if m == 1:
+                if targetSum in nums[start:]:
+                    return [[targetSum]]
+                else:
+                    return []
+
+            if (start, targetSum, m) in memo:
+                return memo[(start, targetSum, m)]
+
+            # normal case handling
+            ans = []
+            # Use nums[start]
+            subAns = dp(start+1, targetSum-nums[start], m-1)
+            for itemL in subAns:
+                ans.append([nums[start]] + itemL)
+            # Not use nums[start]
+            subAns = dp(start+1, targetSum, m)
+            for itemL in subAns:
+                ans.append(itemL)
+
+            memo[(start, targetSum, m)] = ans
+            return ans
+
+        if len(nums) < 3:
+            return []
+        ans = dp(0,0,3)
+
+        # # remove the duplicated items
+        # for k in range(len(ans)-1):
+        #     for j in range(k+1,len(ans))
+        if len(ans) >= 2:
+            k = 0
+            while k < len(ans):
+                j = k+1
+                while j < len(ans):
+                    if set(ans[j]) == set(ans[k]):
+                        del ans[j]
+                    else:
+                        j += 1
+                k = k+1
+    
         return ans
 
 if __name__ == '__main__':    
