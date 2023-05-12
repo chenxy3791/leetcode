@@ -39,7 +39,11 @@ Example:
       #close file
       text_file.close() 
       print(data)
-
+      
+4.1 Include a file
+  with open('No1330-testdata.py','r') as f:
+    exec(f.read())    
+    
 5. enumerate usage
   intervals = [[3,4],[2,3],[1,2]]
   for k,itvl in enumerate(intervals):
@@ -70,3 +74,4 @@ Example:
 
 8. assert <condition>
    assert <condition>,<error message>  
+      
