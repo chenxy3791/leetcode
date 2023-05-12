@@ -33,13 +33,13 @@ Created on Mon Aug  2 12:19:45 2021
 # package_example.HelloModule.HelloWorldFunc()
 
 # # Import modules from a package -- method#1
-import package_example.HelloModule
-# import package_example.HelloModule as myHelloModule
-# from   package_example import HelloModule
-# from   package_example import *
-package_example.HelloModule.HelloWorldFunc()
-helloClassObj = package_example.HelloModule.HelloWorldClass()
-helloClassObj.helloWorld()
+# import package_example.HelloModule
+# # import package_example.HelloModule as myHelloModule
+# # from   package_example import HelloModule
+# # from   package_example import *
+# package_example.HelloModule.HelloWorldFunc()
+# helloClassObj = package_example.HelloModule.HelloWorldClass()
+# helloClassObj.helloWorld()
 
 # # import package_example.HelloModule as myHelloModule
 # # myHelloModule.HelloWorldFunc()
@@ -50,7 +50,35 @@ helloClassObj.helloWorld()
 # HelloModule.HelloWorldFunc()
 
 
+import hello_world
 
+print(hello_world.helloWorldStr)
 
+hello_world.HelloWorld()
+
+'''
+exec(object, globals=None, locals=None, /, *, closure=None)
+This function supports dynamic execution of Python code. 
+object must be either a string or a code object. 
+If it is a string, the string is parsed as a suite of Python statements 
+which is then executed (unless a syntax error occurs). 
+If it is a code object, it is simply executed. 
+In all cases, the code that’s executed is expected to be valid as file input 
+(see the section File input in the Reference Manual). 
+Be aware that the nonlocal, yield, and return statements may not be used 
+outside of function definitions even within the context of code passed to 
+the exec() function. The return value is None.
+'''
+with open('hello_world.py','r') as f:
+    exec(f.read())   
+    
+exec(open('hello_world.py','r').read())
+
+# execfile("./filename") # Python2.x syntax
+
+# You can spawn a new process using the os.system command.
+
+import os
+os.system('python hello_world.py')
 
 
