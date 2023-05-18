@@ -45,3 +45,21 @@ if f.mode == 'r':
     for line in f_lines:
         print(line)
 f.close()
+
+# Handle binary file read and write
+import random
+f = open('binary_file', 'w+b')
+byte_arr = [random.randint(0,255) for k in range(10)]
+print(byte_arr)
+binary_format = bytearray(byte_arr)
+f.write(binary_format)
+f.close()
+
+f = open('binary_file', 'rb')
+while True:
+    b_read = f.read(1)
+    if b_read == b'':
+        print('read file complete!')
+        break
+    else:
+        print("{0}".format(b_read))
