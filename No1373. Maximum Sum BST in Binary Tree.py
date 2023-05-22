@@ -55,7 +55,7 @@ from collections import deque
 import itertools as it
 import bisect
 import sys
-from utils.BinaryTree import TreeNode, BinaryTree
+from utils.BinaryTree import TreeNode, BinaryTree, binTree2Lst, lst2bintree
 from functools import reduce
   
 # Definition for a binary tree node.
@@ -144,9 +144,13 @@ if __name__ == '__main__':
 
     sln  = Solution()                
     
-    data = [1,4,3,2,4,2,5,None,None,None,None,None,None,4,6]
-    xBT = BinaryTree(data)    
-    print(sln.maxSumBST(xBT.root))           
+    # data = [1,4,3,2,4,2,5,None,None,None,None,None,None,4,6]
+    # xBT = BinaryTree(data)    
+    # print(sln.maxSumBST(xBT.root))           
+    
+    root = lst2bintree([1,4,3,2,4,2,5,None,None,None,None,None,None,4,6])
+    print(sln.maxSumBST(root))           
+    
     
     data = [4,3,None,1,2]
     xBT = BinaryTree(data)    
@@ -155,3 +159,4 @@ if __name__ == '__main__':
     data = [-4,-2,-5]
     xBT = BinaryTree(data)    
     print(sln.maxSumBST(xBT.root))           
+    

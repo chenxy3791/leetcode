@@ -7,6 +7,7 @@ Created on Fri Sep 20 13:01:04 2019
 
 @author: chenxy
 """
+from typing import List, Optional	
 
 # Definition for a binary tree node.
 # class TreeNode:
@@ -23,6 +24,7 @@ class BinaryTree:
     def __init__(self, x):
         """ 
         Assuming that the input list represents a valid binary tree
+        2023-05-22 Simplification to function lst2bintree()
         """
         if len(x) == 0: # []
             self.root = None
@@ -62,6 +64,48 @@ class BinaryTree:
                 break
             nodeLoL.append(newLayer)
             k += 1
+
+def lst2bintree(x:List[int]) -> Optional[TreeNode]:
+    if len(x) == 0: # []
+        root = None
+    if x[0] == None: # [None]
+        root = None
+
+    x.reverse() # For the convenience of utilizing x.pop()
+    nodeLoL = []        
+    root = TreeNode(x.pop())
+    nodeLoL.append([root])
+    k = 0
+    while(1):
+        #print('k = {0}, {1}'.format(k, x))
+        newLayer = []
+        for node in nodeLoL[k]:
+            #print(node.val)
+            if node == None:
+                pass
+            else:
+                if len(x) == 0:
+                    break
+                tmp = x.pop()
+                if tmp != None:
+                    newNode = TreeNode(tmp)
+                    node.left = newNode
+                    newLayer.append(newNode)
+
+                if len(x) == 0:
+                    break
+                tmp = x.pop()
+                if tmp != None:
+                    newNode = TreeNode(tmp)
+                    node.right = newNode
+                    newLayer.append(newNode)
+
+        if len(x) == 0:
+            break
+        nodeLoL.append(newLayer)
+        k += 1
+        
+    return root
 
 def binTree2Lst(root):
     """ 
