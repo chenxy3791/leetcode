@@ -109,7 +109,8 @@ def lst2bintree(x:List[int]) -> Optional[TreeNode]:
 
 def binTree2Lst(root):
     """ 
-        An inverse of the BinaryTree constructor. 
+    binary tree serialization.
+    Convert a binary tree with "root" as its root to a list.
     """
     if root == None:
         return []
@@ -134,14 +135,29 @@ def binTree2Lst(root):
 
 if __name__ == '__main__':    
 
+    # x   = [3,9,20,None,None,15,7]
+    # xBT = BinaryTree(x)
+    # print(xBT.root.val)
+    # print(xBT.root.left.val)
+    # print(xBT.root.right.val)
+    # print(xBT.root.left.left)
+    # print(xBT.root.left.right)    
+    # print(xBT.root.right.left.val)
+    # print(xBT.root.right.right.val)    
+    # print(binTree2Lst(xBT.root))
+    
     x   = [3,9,20,None,None,15,7]
-    xBT = BinaryTree(x)
-    print(xBT.root.val)
-    print(xBT.root.left.val)
-    print(xBT.root.right.val)
-    print(xBT.root.left.left)
-    print(xBT.root.left.right)    
-    print(xBT.root.right.left.val)
-    print(xBT.root.right.right.val)    
-
-    print(binTree2Lst(xBT.root))
+    root = lst2bintree(x)
+    print(root.val)
+    print(root.left.val)
+    print(root.right.val)
+    print(root.left.left)
+    print(root.left.right)    
+    print(root.right.left.val)
+    print(root.right.right.val)  
+    print(binTree2Lst(root))
+    
+    x = [1,2,-3,-5,None,4,None]
+    root = lst2bintree(x)
+    print(binTree2Lst(root))
+    
