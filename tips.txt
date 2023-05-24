@@ -5,19 +5,19 @@
   Remove block Comment : Ctrl + 5
 
 2. 常用库：
-  import time
-  import random
-  from typing import List, Optional	
-  from collections import defaultdict
-  import time
-  import numpy as np
-  from math import sqrt
-  from collections import deque
-  import itertools as it
-  import bisect
-  import sys
-  from utils.BinaryTree import TreeNode
-  from utils.BinaryTree import BinaryTree
+
+import time
+import random
+from typing import List, Optional	
+from collections import defaultdict, Counter
+import numpy as np
+from math import sqrt, inf
+from collections import deque
+import itertools as it
+import bisect
+import sys
+from utils.BinaryTree import TreeNode, binTree2Lst, lst2bintree
+from functools import reduce
 
 3. simple time evaluation
   tStart= time.time()
